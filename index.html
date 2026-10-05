@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Fractal Batik Generator</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<header class="header">
+
+    <div class="brand">
+        <div class="logo">✦</div>
+
+        <div>
+            <h1>FRACTAL BATIK</h1>
+            <p>Generator Batik Berbasis Rekursi & Matematika Diskrit</p>
+        </div>
+    </div>
+
+    <div class="project-badge">
+        PROJEK MATDIS
+    </div>
+
+</header>
+
+
+<main class="layout">
+
+    <!-- =========================
+         PANEL KONTROL
+    ========================== -->
+
+    <aside class="control-panel">
+
+        <h2>🎨 Pengaturan Batik</h2>
+
+
+        <!-- MOTIF -->
+
+        <div class="control-group">
+
+            <label>Motif Dasar</label>
+
+            <select id="motif">
+
+                <option value="kawung">
+                    Kawung
+                </option>
+
+                <option value="ceplok">
+                    Ceplok
+                </option>
+
+                <option value="truntum">
+                    Truntum
+                </option>
+
+                <option value="parang">
+                    Parang
+                </option>
+
+            </select>
+
+        </div>
+
+
+        <!-- ITERASI -->
+
+        <div class="control-group">
+
+            <label>
+                <span>Iterasi Fraktal</span>
+                <b id="iterationValue">3</b>
+            </label>
+
+            <input
+                type="range"
+                id="iteration"
+                min="1"
+                max="6"
+                value="3"
+            >
+
+            <small>
+                Menentukan kedalaman rekursi.
+            </small>
+
+        </div>
+
+
+        <!-- UKURAN -->
+
+        <div class="control-group">
+
+            <label>
+                <span>Ukuran Motif</span>
+                <b id="sizeValue">90</b>
+            </label>
+
+            <input
+                type="range"
+                id="size"
+                min="45"
+                max="140"
+                value="90"
+            >
+
+        </div>
+
+
+        <!-- JARAK -->
+
+        <div class="control-group">
+
+            <label>
+                <span>Jarak Pola</span>
+                <b id="spacingValue">1.1</b>
+            </label>
+
+            <input
+                type="range"
+                id="spacing"
+                min="0.7"
+                max="1.7"
+                step="0.1"
+                value="1.1"
+            >
+
+        </div>
+
+
+        <!-- WARNA MOTIF -->
+
+        <div class="color-section">
+
+            <h3>🖌️ Warna Motif</h3>
+
+
+            <div class="color-row">
+
+                <div>
+                    <label>Warna Utama</label>
+
+                    <input
+                        type="color"
+                        id="mainColor"
+                        value="#8B4513"
+                    >
+                </div>
+
+
+                <div>
+                    <label>Warna Aksen</label>
+
+                    <input
+                        type="color"
+                        id="accentColor"
+                        value="#D6A756"
+                    >
+                </div>
+
+
+                <div>
+                    <label>Warna Garis</label>
+
+                    <input
+                        type="color"
+                        id="lineColor"
+                        value="#32180D"
+                    >
+                </div>
+
+            </div>
+
+
+            <button
+                id="autoColor"
+                class="secondary-button"
+            >
+                ✨ Sesuaikan Warna Otomatis
+            </button>
+
+        </div>
+
+
+        <!-- LATAR KAIN -->
+
+        <div class="color-section">
+
+            <h3>🧵 Latar Kain</h3>
+
+            <div class="background-grid">
+
+                <div>
+
+                    <label>Warna Dasar</label>
+
+                    <input
+                        type="color"
+                        id="fabricColor"
+                        value="#F3E4C3"
+                    >
+
+                </div>
+
+
+                <div>
+
+                    <label>Tekstur</label>
+
+                    <input
+                        type="color"
+                        id="textureColor"
+                        value="#8B6B45"
+                    >
+
+                </div>
+
+            </div>
+
+
+            <label class="check-row">
+
+                <input
+                    type="checkbox"
+                    id="texture"
+                    checked
+                >
+
+                Tampilkan tekstur kain
+
+            </label>
+
+        </div>
+
+
+        <!-- LATAR WEBSITE -->
+
+        <div class="color-section">
+
+            <h3>🌌 Latar Website</h3>
+
+            <div class="background-grid">
+
+                <div>
+
+                    <label>Warna Atas</label>
+
+                    <input
+                        type="color"
+                        id="webBg1"
+                        value="#21150F"
+                    >
+
+                </div>
+
+
+                <div>
+
+                    <label>Warna Bawah</label>
+
+                    <input
+                        type="color"
+                        id="webBg2"
+                        value="#090706"
+                    >
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- TOMBOL -->
+
+        <div class="button-grid">
+
+            <button
+                id="generate"
+                class="primary-button"
+            >
+                ✨ Generate
+            </button>
+
+
+            <button
+                id="randomize"
+                class="secondary-button"
+            >
+                🎲 Acak
+            </button>
+
+        </div>
+
+
+        <button
+            id="download"
+            class="download-button"
+        >
+            ⬇ Download PNG
+        </button>
+
+
+        <!-- PENJELASAN -->
+
+        <div class="concept">
+
+            <h3>📐 Konsep Fraktal</h3>
+
+            <p>
+                <b>Rekursi</b> digunakan untuk
+                membuat motif kecil dari motif
+                sebelumnya.
+            </p>
+
+            <p>
+                <b>Iterasi</b> menentukan berapa
+                kali proses tersebut diulang.
+            </p>
+
+            <p>
+                <b>Transformasi</b> berupa rotasi,
+                translasi, dan skala digunakan
+                untuk menyusun motif.
+            </p>
+
+            <p>
+                <b>Simetri</b> membuat pola tetap
+                memiliki karakter geometris batik.
+            </p>
+
+        </div>
+
+    </aside>
+
+
+    <!-- =========================
+         AREA CANVAS
+    ========================== -->
+
+    <section class="workspace">
+
+        <div class="workspace-header">
+
+            <div>
+
+                <h2>Motif Batik Fraktal</h2>
+
+                <p>
+                    Motif dibentuk secara rekursif
+                    dan diulang memenuhi bidang kain.
+                </p>
+
+            </div>
+
+
+            <div
+                id="status"
+                class="status"
+            >
+                Siap
+            </div>
+
+        </div>
+
+
+        <div class="canvas-container">
+
+            <canvas
+                id="batikCanvas"
+                width="1000"
+                height="700"
+            ></canvas>
+
+        </div>
+
+
+        <div class="formula">
+
+            <span>Rekursi:</span>
+
+            <code>
+                F(n) = Motif + F(n − 1)
+            </code>
+
+            <span>Transformasi:</span>
+
+            <code>
+                T(x,y) → (sx, sy)
+            </code>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<!-- =========================
+     INFO
+========================== -->
+
+<section class="information">
+
+    <h2>
+        Mengapa disebut Batik Fraktal?
+    </h2>
+
+    <div class="info-cards">
+
+        <article>
+
+            <span>01</span>
+
+            <h3>Motif Dasar</h3>
+
+            <p>
+                Program dimulai dari satu motif
+                batik seperti Kawung atau Ceplok.
+            </p>
+
+        </article>
+
+
+        <article>
+
+            <span>02</span>
+
+            <h3>Rekursi</h3>
+
+            <p>
+                Motif yang sama dibuat kembali
+                dengan ukuran yang lebih kecil.
+            </p>
+
+        </article>
+
+
+        <article>
+
+            <span>03</span>
+
+            <h3>Transformasi</h3>
+
+            <p>
+                Motif diputar, dipindahkan,
+                dan diskalakan.
+            </p>
+
+        </article>
+
+
+        <article>
+
+            <span>04</span>
+
+            <h3>Pola Fraktal</h3>
+
+            <p>
+                Hasil akhirnya membentuk pola
+                kompleks yang memenuhi bidang kain.
+            </p>
+
+        </article>
+
+    </div>
+
+</section>
+
+
+<script src="script.js"></script>
+
+</body>
+</html>
